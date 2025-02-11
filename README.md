@@ -28,10 +28,17 @@ NLP Integration: Natural Language Processing components that drive real-time tra
 Cloud and Security: Cloud infrastructure ensures scalability and security, safeguarding sensitive legal data while providing robust accessibility.
 
 ****Technologies Used**
+
 *Programming Languages: Python, JavaScript*
+
 Frameworks: Django (Backend), React (Frontend)
+
 Machine Learning Libraries: TensorFlow, scikit-learn
+
 Natural Language Processing: NLTK, SpaCy
+
 Database: PostgreSQL
+
 Cloud Services: AWS (EC2, S3), Azure
+
 Security: SSL/TLS, OAuth**
