@@ -1,5 +1,4 @@
-**Introduction
-**
+*Introduction*
 VerdicAI is an innovative platform designed to revolutionize the legal ecosystem by integrating advanced artificial intelligence technologies. Our mission is to enhance legal processes, streamline operations, and deliver more efficient and equitable justice solutions.
 
 **Features**
