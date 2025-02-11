@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 380px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex; /* Show the chat widget by default */
+            flex-direction: column;
+            z-index: 1000;
+        }
+        .chat-header {
+            background: green;
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 {
+            margin: 0;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 10px;
+            max-width: 90%;
+        }
+        .bot-message {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 10px 10px 10px 0;
+            margin-right: auto;
+        }
+        .user-message {
+            background: green;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0 10px;
+            margin-left: auto;
+        }
+        .options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .option-button {
+            background: #e9ecef;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+        .option-button:hover {
+            background: #dee2e6;
+        }
+        .back-button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .question-button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .question-button:hover {
+            background: #e9ecef;
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <h3>Legal Assistant</h3>
+            <button class="close-btn" onclick="toggleChat()">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Hello! I'm your legal assistant. Please select a category to get started:
+            </div>
+        </div>
+    </div>
+    <script>
+        // Categories and their subcategories
+        const categories = {
+            "Automobile": {
+                subcategories: [
+                    "Vehicle Ownership & Registration",
+                    "Vehicle Theft & Fraud",
+                    "Modifications & Customization",
+                    "Parking & Towing"
+                ]
+            },
+            "Driving": {
+                subcategories: [
+                    "Driving & Traffic Laws",
+                    "Accidents & Liability"
+                ]
+            },
+            "Family Law": {
+                subcategories: [
+                    "Marriage & Divorce",
+                    "Child Custody & Support",
+                    "Adoption & Guardianship",
+                    "Domestic Violence & Protection Orders"
+                ]
+            },
+            "Business": {
+                subcategories: [
+                    "Business Formation & Structure",
+                    "Business Licensing & Compliance"
+                ]
+            }
+        };
+
+        // Your existing FAQ data
+        const faqs = [
+        { category: "Vehicle Ownership & Registration", question: "What documents are required to legally own and drive a bike/car?", answer: "Registration Certificate (RC), insurance, Pollution Under Control (PUC) certificate, driving license, and road tax receipt." },
+    { category: "Vehicle Ownership & Registration", question: "What should I do if I lose my vehicle’s registration certificate (RC)?", answer: "File an FIR, apply for a duplicate RC at the RTO, and submit Form 26 with necessary documents." },
+    { category: "Vehicle Ownership & Registration", question: "Is it legal to drive a vehicle registered in someone else’s name?", answer: "Yes, but you must carry authorization and all valid documents." },
+    { category: "Vehicle Ownership & Registration", question: "How do I transfer ownership of a used car or bike?", answer: "Submit Form 29 & Form 30 at the RTO along with original RC, insurance, and buyer's ID proof." },
+    { category: "Vehicle Ownership & Registration", question: "What is the legal process for scrapping an old vehicle?", answer: "Deregister the vehicle at the RTO, hand it over to an authorized scrapyard, and obtain a certificate of destruction." },
+    
+    { category: "Driving & Traffic Laws", question: "What are the penalties for driving without a license?", answer: "Fines and possible vehicle impoundment; penalties vary by country/state." },
+    { category: "Driving & Traffic Laws", question: "Is it legal to ride a bike without wearing a helmet?", answer: "No, it is mandatory in most places; failure can result in fines." },
+    { category: "Driving & Traffic Laws", question: "What should I do if I’m caught driving without insurance?", answer: "Pay the fine or renew insurance immediately; repeated offenses may lead to higher penalties." },
+    { category: "Driving & Traffic Laws", question: "Can traffic police seize my vehicle for not carrying proper documents?", answer: "Yes, if essential documents (RC, insurance, DL) are missing or expired." },
+    { category: "Driving & Traffic Laws", question: "How can I contest an unfair traffic fine or challan?", answer: "File a dispute online or at the traffic police department with proof." },
+    
+    { category: "Accidents & Liability", question: "What should I do legally after a road accident?", answer: "Stop, check for injuries, inform police, document evidence, and notify your insurer." },
+    { category: "Accidents & Liability", question: "Who is responsible for damages if my vehicle is involved in an accident?", answer: "The at-fault driver is liable; insurance covers damages based on the policy." },
+    { category: "Accidents & Liability", question: "Can I be sued if someone else drives my car and gets into an accident?", answer: "Yes, as the owner, you may be held responsible, depending on the situation." },
+    { category: "Accidents & Liability", question: "What are my legal rights if my vehicle is damaged due to bad road conditions?", answer: "You can file a claim against the municipal authority for negligence." },
+    { category: "Accidents & Liability", question: "How do I file an insurance claim after an accident?", answer: "Notify the insurer, file an FIR if necessary, provide evidence, and follow the claim process." },
+    
+    { category: "Marriage & Divorce", question: "What are the legal requirements for getting married?", answer: "Legal age (usually 18), consent from both parties, valid marriage license, authorized officiant, and sometimes medical tests or waiting periods." },
+    { category: "Marriage & Divorce", question: "How can I get a divorce, and what is the process?", answer: "Filing a divorce petition, serving the petition, division of assets, custody arrangements, and final court approval." },
+    { category: "Marriage & Divorce", question: "How is property divided in a divorce?", answer: "Community Property States: Equal split. Equitable Distribution States: Fair but not equal division." },
+    { category: "Marriage & Divorce", question: "What are the grounds for annulment of marriage?", answer: "Fraud, bigamy, incest, lack of consent, or underage marriage without proper consent." },
+    
+    { category: "Child Custody & Support", question: "How is child custody determined in a divorce?", answer: "Courts decide based on the best interests of the child, considering stability, parental relationship, and financial ability." },
+    { category: "Child Custody & Support", question: "How is child support calculated?", answer: "Based on income, child's needs, custody arrangement, and state guidelines." },
+    { category: "Child Custody & Support", question: "Can child support be modified after a divorce?", answer: "Yes, if there is a significant change in financial circumstances or the child's needs." },
+    
+    { category: "Cybercrime & Online Fraud", question: "How can I report online fraud or identity theft?", answer: "Contact your bank immediately, report to cybercrime authorities, change passwords, and enable two-factor authentication." },
+    { category: "Cybercrime & Online Fraud", question: "What are the penalties for hacking into someone’s account?", answer: "Fines, imprisonment, and potential internet bans under anti-hacking laws." },
+    { category: "Cybercrime & Online Fraud", question: "What legal steps can be taken against cyberbullying or online harassment?", answer: "File a police report, seek a restraining order, and report the behavior to social media platforms." },
+    
+    { category: "Vehicle Theft & Fraud", question: "What should I do if my car/bike is stolen?", answer: "File an FIR, inform the RTO and insurer, and apply for a claim if insured." },
+    { category: "Vehicle Theft & Fraud", question: "Is buying a second-hand vehicle without proper documentation illegal?", answer: "Yes, it can lead to legal trouble; always verify the RC and other papers." },
+    { category: "Vehicle Theft & Fraud", question: "How do I check if a second-hand vehicle is stolen or has legal issues?", answer: "Verify RC details through the RTO and check police records." },
+    { category: "Vehicle Theft & Fraud", question: "What legal action can I take if I was sold a defective or fraudulently modified vehicle?", answer: "File a consumer complaint and take legal action for misrepresentation." },
+    { category: "Vehicle Theft & Fraud", question: "Can I sue a mechanic for damaging my vehicle during repairs?", answer: "Yes, if there is negligence or unauthorized work." },
+    
+    { category: "Modifications & Customization", question: "Is it legal to modify my bike/cars exhaust or headlights?", answer: "No, unauthorized modifications affecting noise or emissions are illegal." },
+    { category: "Modifications & Customization", question: "Can I change my vehicles color without informing the authorities?", answer: "No, you must update the RC and get approval from the RTO." },
+    { category: "Modifications & Customization", question: "What are the legal restrictions on installing loud horns or tinted windows?", answer: "Loud horns are illegal beyond permissible decibel limits; window tinting laws vary." },
+    { category: "Modifications & Customization", question: "Are aftermarket accessories like bull bars or fancy number plates legal?", answer: "No, most modifications violating safety standards are banned." },
+    { category: "Modifications & Customization", question: "Can I register an imported vehicle in my country?", answer: "Yes, but it must comply with import regulations, emissions, and safety norms." },
+    
+    { category: "Parking & Towing", question: "Can my vehicle be towed if I am inside it?", answer: "No, unless it is illegally parked and you refuse to move." },
+    { category: "Parking & Towing", question: "What are my rights if my vehicle is wrongly towed?", answer: "You can challenge it with proof and request a refund." },
+    { category: "Parking & Towing", question: "Can a private society impose parking fines on my vehicle?", answer: "They can regulate parking but cannot impose government fines." },
+    { category: "Parking & Towing", question: "Is it legal to park my vehicle on a public road for an extended period?", answer: "No, abandoned vehicles can be towed by authorities." },
+    { category: "Parking & Towing", question: "What should I do if my car is damaged while being towed?", answer: "File a complaint and claim damages from the towing agency." },
+
+     { category: "Adoption & Guardianship", question: "What is the process for adopting a child?", answer: "File an adoption application, complete a home study, obtain parental rights termination (if applicable), and attend court hearings for final approval." },
+    { category: "Adoption & Guardianship", question: "Can a stepparent adopt their stepchild?", answer: "Yes, but the noncustodial parent must either consent to the adoption or have their parental rights terminated by the court." },
+    { category: "Adoption & Guardianship", question: "What rights do biological parents have after adoption?", answer: "Once adoption is finalized, biological parents lose all parental rights unless an open adoption agreement allows for contact." },
+    { category: "Adoption & Guardianship", question: "How can I establish legal guardianship of a minor?", answer: "You must petition the court and prove that guardianship is in the childs best interests. The court considers the child's well-being, the parent's fitness, and the guardian’s ability to provide care." },
+    
+    { category: "Domestic Violence & Protection Orders", question: "How can I get a restraining order or protection order?", answer: "You must file a petition in court, demonstrating that you are in danger. A judge may issue an emergency order, followed by a hearing for a long-term order." },
+    { category: "Domestic Violence & Protection Orders", question: "What qualifies as domestic violence legally?", answer: "Domestic violence includes physical abuse, emotional abuse, sexual assault, stalking, and economic abuse within a domestic relationship." },
+    { category: "Domestic Violence & Protection Orders", question: "Can a restraining order affect child custody rights?", answer: "Yes, a restraining order can impact custody decisions. A parent with a history of abuse may receive limited or supervised visitation." },
+    { category: "Domestic Violence & Protection Orders", question: "What legal actions can be taken against an abusive spouse?", answer: "Filing for a restraining order, seeking criminal charges for assault, and pursuing divorce with a request for sole custody." },
+    
+    { category: "Name Change & Identity", question: "How do I legally change my name?", answer: "File a name change petition in court, publish a notice (if required), attend a court hearing, and obtain an order." },
+    { category: "Name Change & Identity", question: "Can I change my child's name without the other parent's consent?", answer: "Generally, both parents must agree, or the requesting parent must show it is in the child's best interest." },
+
+     { category: "Business Formation & Structure", question: "What legal requirements must be met to start a business?", answer: "Requirements vary by jurisdiction but generally include business registration, obtaining necessary licenses and permits, complying with tax laws, and registering for an Employer Identification Number (EIN)." },
+    { category: "Business Formation & Structure", question: "How do I register my business legally?", answer: "Choose a business name and structure, register with local, state, or federal authorities, and obtain a business tax ID and necessary permits." },
+    { category: "Business Formation & Structure", question: "What are the legal steps to dissolve a business?", answer: "File dissolution paperwork with the appropriate authority, settle outstanding debts and liabilities, and notify creditors, employees, and government agencies." },
+    { category: "Business Formation & Structure", question: "What are the essential elements of a legally binding contract?", answer: "A contract must have offer and acceptance, consideration (value exchange), mutual consent, legal capacity of parties, and a legal purpose." },
+    { category: "Business Formation & Structure", question: "How can I enforce a contract if the other party breaches it?", answer: "Negotiate informally or use mediation, send a legal demand letter, or file a lawsuit for damages or contract enforcement." },
+    { category: "Business Formation & Structure", question: "How can I protect my business from contract disputes?", answer: "Clearly define all terms, include dispute resolution clauses, and keep written records of agreements." },
+    { category: "Business Formation & Structure", question: "What are the legal implications of signing an NDA?", answer: "Confidentiality obligations, legal consequences for breaches, and duration of secrecy." },
+    
+    { category: "Business Licensing & Compliance", question: "What licenses and permits do I need to operate a business?", answer: "General business license, industry-specific permits (e.g., food service, construction), and tax permits (Sales tax, VAT, etc.)." },
+    { category: "Business Licensing & Compliance", question: "What are the penalties for operating a business without the necessary licenses?", answer: "Fines and penalties, business closure, and legal action." },
+    { category: "Business Licensing & Compliance", question: "How can I ensure my business remains legally compliant?", answer: "Stay updated with regulatory changes, maintain proper financial records, and hire a business attorney or compliance officer." }
+    
+];
+        
+
+        let currentCategory = null;
+        let currentSubcategory = null;
+
+        // Function to show main categories when the page loads
+        function showMainCategories() {
+            currentCategory = null;
+            currentSubcategory = null;
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = `
+                <div class="message bot-message">
+                    Hello! I'm your legal assistant. Please select a category to get started:
+                </div>
+                <div class="options-container">
+                    ${Object.keys(categories).map(category => 
+                        `<button class="option-button" onclick="selectCategory('${category}')">${category}</button>`
+                    ).join('')}
+                </div>
+            `;
+        }
+
+        // Call showMainCategories to display the main categories immediately
+        showMainCategories();
+
+        function selectCategory(category) {
+            currentCategory = category;
+            currentSubcategory = null;
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = `
+                <div class="message user-message">${category}</div>
+                <div class="message bot-message">
+                    Please select a specific area:
+                    <div class="options-container">
+                        <button class="back-button" onclick="showMainCategories()">← Back</button>
+                        ${categories[category].subcategories.map(sub => 
+                            `<button class="option-button" onclick="selectSubcategory('${sub}')">${sub}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectSubcategory(subcategory) {
+            currentSubcategory = subcategory;
+            const relevantQuestions = faqs.filter(faq => faq.category === subcategory);
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = `
+                <div class="message user-message">${subcategory}</div>
+                <div class="message bot-message">
+                    Here are common questions about ${subcategory}:
+                    <div style="margin-top: 10px;">
+                        <button class="back-button" onclick="selectCategory('${currentCategory}')">← Back</button>
+                        ${relevantQuestions.map(faq => 
+                            `<button class="question-button" onclick="showAnswer('${faq.question}', '${faq.answer.replace(/'/g, "\\'")}')">${faq.question}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function showAnswer(question, answer) {
+            const messagesDiv = document.getElementById('chatMessages');
+            messagesDiv.innerHTML = `
+                <div class="message user-message">${question}</div>
+                <div class="message bot-message">
+                    ${answer}
+                    <div style="margin-top: 10px;">
+                        <button class="back-button" onclick="selectSubcategory('${currentSubcategory}')">← Back to questions</button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>   
+</body>
+</html>
