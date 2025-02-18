@@ -116,32 +116,17 @@
     </div>
     <!-- About End -->
     
-    
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="row" >
-                <h3 class="mb-4">Information for Precedence:</h3>
-                </div>
-            <div class="row">
-                <form action="{{ url_for('submit') }}" method="post">
-                    <div>
-                        <label for="case_details">Case Details:</label>
-                        <input type="text" name="case_details" id="case_details">
-                    </div>
-                    <div class="submit_button">
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
+    <div class="container py-5">
+        <h1 style="text-align: center; margin-bottom: 30px;">Precedence Finder</h1>
+        <form action="{{ url_for('submit') }}" method="post">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 15px;">
+                <input type="text" name="case_details" id="case_details" class="form-control" placeholder="Enter Case Details:" style="max-width: 600px;">
             </div>
+            <div style="display: flex; justify-content: center;gap: 15px; margin-top: 50px;  margin-right   : -300px;  ">
+                <button class="btn btn-success" type="submit" style="width: 120px;">Submit</button>
             </div>
-        </div>
+        </form>
     </div>
-   
-
-    
-   
-
-
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row mt-5">
