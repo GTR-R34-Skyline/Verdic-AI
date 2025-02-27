@@ -23,7 +23,7 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -76,12 +76,12 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
-                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
-                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
-                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
-                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                        <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
+                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
+                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
+                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
+                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
+                        <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
                     </div>
                     <a href="" class="btn btn-primary mr-3 d-none d-lg-block">FAQs</a>
                 </div>
@@ -91,7 +91,20 @@
 </div>
 <!-- Header End -->
 
-
+     <!-- Page Header Start -->
+     <div class="container-fluid bg-page-header" style="margin-bottom: 90px;">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+                <h3 class="display-3 text-white text-uppercase">Document</h3>
+                <div class="d-inline-flex text-white">
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{ url_for('home') }}">Home</a></p>
+                    <i class="fa fa-angle-double-right pt-1 px-3"></i>
+                    <p class="m-0 text-uppercase">Document</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
 
     <!-- About Start -->
     <div class="container-fluid py-5">
@@ -192,7 +205,7 @@
         </div>
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
-                <a href="index.html" class="navbar-brand">
+                <a href="{{ url_for('home') }}" class="navbar-brand">
                     <h1 class="m-0 mt-n2 display-4 text-primary text-uppercase">Verdic-AI</h1>
                 </a>
                 <p>Justice Delayed is Justice Denied</p>
