@@ -23,7 +23,7 @@
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-3 bg-secondary d-none d-lg-block">
-            <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+            <a href="{{ url_for('home') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
                 <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
             </a>
         </div>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <a href="{{ url_for('home') }}" class="navbar-brand d-block d-lg-none">
                     <h1 class="m-0 display-4 text-primary text-uppercase">Justice</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -76,16 +76,16 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
-                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
-                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
-                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
-                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                        <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
+                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
+                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
+                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
+                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
+                        <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
                     </div>
                     <a href="" class="btn btn-primary mr-3 d-none d-lg-block">FAQs</a>
                 </div>
-            </nav>
+             </nav>
         </div>
     </div>
 </div>
@@ -98,7 +98,7 @@
             <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
                 <h3 class="display-3 text-white text-uppercase">About us </h3>
                 <div class="d-inline-flex text-white">
-                    <p class="m-0 text-uppercase"><a class="text-white" href="index.html">Home</a></p>
+                    <p class="m-0 text-uppercase"><a class="text-white" href="{{ url_for('home') }}">Home</a></p>
                     <i class="fa fa-angle-double-right pt-1 px-3"></i>
                     <p class="m-0 text-uppercase">About us </p>
                 </div>
@@ -209,7 +209,7 @@
         </div>
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
-                <a href="index.html" class="navbar-brand">
+                <a href="{{ url_for('home') }}" class="navbar-brand">
                     <h1 class="m-0 mt-n2 display-4 text-primary text-uppercase">Verdic-AI</h1>
                 </a>
                 <p>Justice Delayed is Justice Denied</p>
@@ -277,5 +277,4 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>
