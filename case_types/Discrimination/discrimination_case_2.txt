@@ -1,0 +1,6 @@
+Case Number: DISC002
+Date: 2025-04-15
+Plaintiff: Jane Smith
+Defendant: Beta Inc
+Details: Claim of racial discrimination during hiring. Statistical data on hiring practices submitted.
+Outcome: Settled out of court

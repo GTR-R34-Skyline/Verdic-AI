@@ -81,9 +81,9 @@
                             <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
                             <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
                             <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                            <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
+                            <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
                         </div>
-                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">FAQs</a>
+                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
                     </div>
                 </nav>
             </div>
@@ -107,110 +107,69 @@
         </div>
         <!-- Page Header End -->
     <!-- Services Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-3">
-                <h6 class="text-uppercase text-primary">Our Practice</h6>
-                <h1 class="mb-4">Our Practice Areas</h1>
-                <p>VerdicAI transforms the legal landscape with intelligent automation. From case analysis to backlog management, our AI-driven platform enhances efficiency, accuracy, and accessibility in the justice system. We streamline legal processes, ensuring faster resolutions and fair outcomes.</p>
-                <a href="#" class="btn btn-primary mt-2">More Services</a>
-            </div>
-            <div class="col-lg-9 pt-5 pt-lg-0 d-flex justify-content-center">
-                <div id="practiceAreasCarousel" class="carousel slide w-75" data-ride="carousel" data-interval="1000">  
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                                <div class="icon-box bg-primary text-white mt-2 mb-4">
-                                    <i class="fa fa-2x fa-balance-scale"></i>
-                                </div>
-                                <h5 class="mb-4">Murder Case</h5>
-                                <p class="m-0">AI-driven case analysis aids in evidence review, forensic evaluation, and precedent research to ensure fair legal proceedings.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                                <div class="icon-box bg-primary text-white mt-2 mb-4">
-                                    <i class="fa fa-2x fa-hand-paper"></i>
-                                </div>
-                                <h5 class="mb-4">Discrimination Cases</h5>
-                                <p class="m-0">VerdicAI helps identify violations, analyze anti-discrimination laws, and support fair judgments against bias-based cases.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                                <div class="icon-box bg-primary text-white mt-2 mb-4">
-                                    <i class="fa fa-2x fa-user-secret"></i>
-                                </div>
-                                <h5 class="mb-4">Fraud Cases</h5>
-                                <p class="m-0">Detects financial scams, identity theft, and fraudulent transactions using AI-powered pattern recognition and legal analysis.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                                <div class="icon-box bg-primary text-white mt-2 mb-4">
-                                    <i class="fa fa-2x fa-search-dollar"></i>
-                                </div>
-                                <h5 class="mb-4">Petty Cases & Scams</h5>
-                                <p class="m-0">Automates case categorization and prioritization, ensuring minor disputes and scams receive timely legal attention.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                                <div class="icon-box bg-primary text-white mt-2 mb-4">
-                                    <i class="fa fa-2x fa-hand-holding-usd"></i>
-                                </div>
-                                <h5 class="mb-4">Corruption</h5>
-                                <p class="m-0">AI detects bribery patterns and financial discrepancies, helping legal authorities take swift action against corruption.</p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+          <div class="text-center pb-5">
+            <h6 class="text-uppercase text-primary">Find Your Lawyer</h6>
+            <h1 class="mb-4">Specialized Legal Experts for Your Case</h1>
+            <p>Based on your case details, we recommend verified lawyers across various specializations.</p>
+          </div>
+          <div id="lawyerCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
+                  <h5 class="mb-3">Adv. Priya Mehta</h5>
+                  <p class="text-muted">Criminal Defense | 10+ years | Mumbai</p>
+                  <p class="m-0">Highly rated for her success in high-profile criminal trials and procedural justice cases.</p>
+                  <small class="text-primary mt-2">Email: priya.mehta@legalmail.com | ★ 4.8</small>
                 </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
+                  <h5 class="mb-3">Adv. Ramesh Iyer</h5>
+                  <p class="text-muted">Family Law | 8 years | Chennai</p>
+                  <p class="m-0">Specialist in divorce, custody battles, and family settlements with a mediation-first approach.</p>
+                  <small class="text-primary mt-2">Email: ramesh.iyer@legalmail.com | ★ 4.6</small>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
+                  <h5 class="mb-3">Adv. Shruti Kapoor</h5>
+                  <p class="text-muted">IP Law | 6 years | Delhi NCR</p>
+                  <p class="m-0">Expert in trademarks, copyrights, and patent litigation, assisting startups and creators.</p>
+                  <small class="text-primary mt-2">Email: shruti.kapoor@legalmail.com | ★ 4.7</small>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
+                  <h5 class="mb-3">Adv. Tarun Bansal</h5>
+                  <p class="text-muted">Corporate Law | 12 years | Bengaluru</p>
+                  <p class="m-0">Provides legal counsel for mergers, acquisitions, and regulatory compliance for tech firms.</p>
+                  <small class="text-primary mt-2">Email: tarun.bansal@legalmail.com | ★ 4.9</small>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
+                  <h5 class="mb-3">Adv. Neha Raj</h5>
+                  <p class="text-muted">Cybercrime | 7 years | Hyderabad</p>
+                  <p class="m-0">Experienced in data privacy violations, cyber frauds, and online harassment litigation.</p>
+                  <small class="text-primary mt-2">Email: neha.raj@legalmail.com | ★ 4.5</small>
+                </div>
+              </div>
             </div>
+            <!-- Optional carousel controls -->
+            <a class="carousel-control-prev" href="#lawyerCarousel" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#lawyerCarousel" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+          </div>
         </div>
-    </div>
+      </div>
+      
 </div>
 <!-- Services End -->
-
-
-
-   <!-- Testimonial Start -->
-<div class="container-fluid py-5">
-    <div class="container py-5">
-        <div class="text-center pb-5">
-            <h6 class="text-uppercase">Services</h6>
-            <h1 class="mb-5">Services offered to our clients</h1>
-        </div>
-        <div id="testimonialCarousel" class="carousel slide" data-ride="carousel" data-interval="1000">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
-                        <strong>Case Analysis</strong>: Uses machine learning to analyze case precedents, legal documents, and predict case outcomes.
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
-                        <strong>Legal Document Automation</strong>: Automates contract review, document translation, and compliance checks with NLP technology.
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
-                        <strong>Legal Assistant</strong>: Provides 24/7 chatbot support for legal queries, document preparation, and scheduling assistance.
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
-                        <strong>Backlog Management</strong>: Optimizes case prioritization and scheduling to reduce delays and ensure timely justice.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Testimonial End -->
-
-    
-    
         <!-- Footer Start -->
         <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
             <div class="row mt-5">

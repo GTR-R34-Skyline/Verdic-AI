@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Assistant Chat Widget</title>
     <style>
         .chat-widget {
             position: fixed;
@@ -11,7 +14,7 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: none;
+            display: none; /* Initially hidden */
             flex-direction: column;
             z-index: 1000;
         }
@@ -252,10 +255,8 @@
     { category: "Criminal Justice", question: "How do sentencing and punishment work after a conviction?", answer: "Punishment depends on the crime and sentencing guidelines. It includes fines, probation, or jail time." }
 
 ];
-
-        let currentCategory = null;
+let currentCategory = null;
         let currentSubcategory = null;
-
         function toggleChat() {
             const widget = document.getElementById('chatWidget');
             if (widget.style.display === 'none' || widget.style.display === '') {
@@ -265,7 +266,6 @@
                 widget.style.display = 'none';
             }
         }
-
         function showMainCategories() {
             currentCategory = null;
             currentSubcategory = null;
@@ -281,7 +281,6 @@
                 </div>
             `;
         }
-
         function selectCategory(category) {
             currentCategory = category;
             currentSubcategory = null;
@@ -299,7 +298,6 @@
                 </div>
             `;
         }
-
         function selectSubcategory(subcategory) {
             currentSubcategory = subcategory;
             const relevantQuestions = faqs.filter(faq => faq.category === subcategory);
@@ -317,7 +315,6 @@
                 </div>
             `;
         }
-
         function showAnswer(question, answer) {
             const messagesDiv = document.getElementById('chatMessages');
             messagesDiv.innerHTML = `

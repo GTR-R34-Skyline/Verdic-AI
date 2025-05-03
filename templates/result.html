@@ -6,25 +6,67 @@
     <title>Verdic-AI - Results</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <style>
+        .case-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .case-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            width: calc(50% - 10px); /* Two cases side-by-side with some gap */
+            box-sizing: border-box;
+        }
+
+        .case-card h6 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .case-card p {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .case-card {
+                width: 100%; /* Stack cases on smaller screens */
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Header Start -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-3 bg-secondary d-none d-lg-block">
@@ -44,41 +86,44 @@
                             <a href="{{ url_for('service') }}" class="nav-item nav-link">Services</a>
                             <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
                             <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                            <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
+                            <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
                         </div>
-                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">FAQs</a>
+                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
                     </div>
                 </nav>
             </div>
         </div>
     </div>
-    <!-- Header End -->
-
-    <!-- Results Section -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <h1 class="mb-4">Case Precedence Results</h1>
-            <p>Below are the most relevant legal precedents based on your query:</p>
-            <h3>Similar Cases:</h3>
-            {% if similar_cases %}
-                <ul>
-                    {% for filename, details in similar_cases %}
-                        <li>
-                            <strong>{{ filename }}</strong>: {{ details }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No similar cases found.</p>
-            {% endif %}
+    <div class="case-container">
+        {% if similar_cases %}
+            {% for case in similar_cases %}
+                <div class="case-card mb-4 p-3 border rounded bg-light">
+                    <h6>
+                        Case Number: {{ case.case_number }} — 
+                        <span class="text-success">
+                            {{ "%.2f"|format(case.relevance) }}% Relevant
+                        </span>
+                        {% if case.matches_all_attributes %}
+                            <span class="badge badge-success ml-2">Exact Attribute Match</span>
+                        {% endif %}
+                    </h6>
+                    <p><strong>Summary:</strong> {{ case.brief_summary }}</p>
+                    <p><strong>Attributes:</strong>
+                        Suspects: {{ case.attributes.num_suspects }},
+                        Location: {{ case.attributes.location }},
+                        Victim: {{ case.attributes.victim_type }}
+                    </p>
+                    <a href="{{ url_for('download_case', predicted_case_type=predicted_case_type, filename=case.filename) }}" class="btn btn-sm btn-primary">Download Details</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No similar cases found.</p>
+        {% endif %}
             <a href="{{ url_for('precedence') }}" class="btn btn-primary mt-3">Search Again</a>
         </div>
     </div>
-    <!-- Results End -->
-
-   
-       <!-- Footer Start -->
-       <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
+    
+    <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row mt-5">
             <div class="col-lg-4">
                 <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
@@ -157,34 +202,21 @@
             </div>
         </div>
     </div>
-    <!-- Footer End -->
+    <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
+    <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
 
- <!-- Back to Top -->
- <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
- <!-- JavaScript Libraries -->
- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
- <script src="static/lib/easing/easing.min.js"></script>
- <script src="static/lib/waypoints/waypoints.min.js"></script>
- <script src="static/lib/owlcarousel/owl.carousel.min.js"></script>
- <script src="static/lib/tempusdominus/js/moment.min.js"></script>
- <script src="static/lib/tempusdominus/js/moment-timezone.min.js"></script>
- <script src="static/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
- <!-- Contact Javascript File -->
- <script src="mail/jqBootstrapValidation.min.js"></script>
- <script src="mail/contact.js"></script>
-
- <!-- Template Javascript -->
- <script src="static/js/main.js"></script>
-
-
-
- 
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 

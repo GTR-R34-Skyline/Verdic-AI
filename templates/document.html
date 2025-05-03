@@ -3,160 +3,199 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Verdic-AI</title>
+    <title>Verdic-AI - Document Generator</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta content="Legal Document Generation" name="keywords">
+    <meta content="Automated Legal Form Creation" name="description">
 
-    <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <style>
+        .form-container {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #343a40;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .submit_button button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit_button button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .about-text h6 {
+            color: #007bff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-text h1 {
+            color: #343a40;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 
 <body>
-<!-- Header Start -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-3 bg-secondary d-none d-lg-block">
-            <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
-            </a>
-        </div>
-        <div class="col-lg-9">
-            <div class="row bg-white border-bottom d-none d-lg-flex">
-                <div class="col-lg-7 text-left">
-                    <div class="h-100 d-inline-flex align-items-center py-2 px-3">
-                        <i class="fa fa-envelope text-primary mr-2"></i>
-                        <small>verdicai@gmail.com</small>
-                    </div>
-                    <div class="h-100 d-inline-flex align-items-center py-2 px-2">
-                        <i class="fa fa-phone-alt text-primary mr-2"></i>
-                        <small>+012 345 6789</small>
-                    </div>
-                </div>
-                <div class="col-lg-5 text-right">
-                    <div class="d-inline-flex align-items-center p-2">
-                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
-                    <h1 class="m-0 display-4 text-primary text-uppercase">Justice</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 bg-secondary d-none d-lg-block">
+                <a href="{{ url_for('home') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
                 </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
-                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
-                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
-                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
-                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                        <a href="{{ url_for('chat') }}" class="nav-item nav-link">Chat Bot</a>
+            </div>
+            <div class="col-lg-9">
+                <div class="row bg-white border-bottom d-none d-lg-flex">
+                    <div class="col-lg-7 text-left">
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-3">
+                            <i class="fa fa-envelope text-primary mr-2"></i>
+                            <small>verdicai@gmail.com</small>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-phone-alt text-primary mr-2"></i>
+                            <small>+012 345 6789</small>
+                        </div>
                     </div>
-                    <a href="" class="btn btn-primary mr-3 d-none d-lg-block">FAQs</a>
+                    <div class="col-lg-5 text-right">
+                        <div class="d-inline-flex align-items-center p-2">
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
                 </div>
-            </nav>
+                <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
+                    <a href="{{ url_for('home') }}" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                            <a href="{{ url_for('about') }}" class="nav-item nav-link">About Us</a>
+                            <a href="{{ url_for('service') }}" class="nav-item nav-link">Services Offered</a>
+                            <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
+                            <a href="{{ url_for('document') }}" class="nav-item nav-link active">Document Generator</a>
+                            <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
+                        </div>
+                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
+                    </div>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
-<!-- Header End -->
-
-
-
-    <!-- About Start -->
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-5">
-                    <img class="img-fluid rounded" src="static/img/document.jpg" alt="">
+                    <img class="img-fluid rounded" src="{{ url_for('static', filename='img/document.jpg') }}" alt="Document Generation">
                 </div>
-                <div class="col-lg-7 mt-4 mt-lg-0">
-                    <h6 class="text-uppercase"> Document</h6>
-                    <h1 class="mb-4">Our Expertise in Document Generation</h1>
+                <div class="col-lg-7 mt-4 mt-lg-0 about-text">
+                    <h6 class="text-uppercase">Document Generation</h6>
+                    <h1 class="mb-4">Our Expertise in Legal Document Creation</h1>
                     <p>
-                        The legal document generation system creates complaint filings by analyzing user input and categorizing the necessary legal components. 
-                        Based on the details provided, the system identifies key elements such as the type of complaint, parties involved, jurisdiction, legal grounds, and supporting evidence. By automating this process, the system streamlines complaint filing, reducing errors and saving time while maintaining accuracy and completeness in legal documentation.                    
+                        Our legal document generation system is designed to streamline the creation of complaint filings by intelligently analyzing user input and categorizing the essential legal components.
                     </p>
-                    <a href="" class="btn btn-primary mt-2">Learn More</a>
+                    <p>
+                        Based on the specific details you provide, the system identifies crucial elements such as the complaint type, involved parties, jurisdiction, legal grounds, and relevant supporting evidence.
+                    </p>
+                    <p>
+                        By automating this intricate process, our system significantly reduces the potential for errors and saves valuable time, all while ensuring the accuracy and completeness required in professional legal documentation.
+                    </p>
+                    <a href="#" class="btn btn-primary mt-2">Learn More</a>
                 </div>
-
             </div>
         </div>
     </div>
-    <!-- About End -->
-
     <div class="container-fluid py-5">
         <div class="container py-5">
             <div class="row">
-                <h3 class="mb-4">Information for Documentation:</h3>
+                <div class="col-md-8 offset-md-2 form-container">
+                    <h3 class="mb-4 text-center">Information for Legal Document Generation</h3>
+                    <form action="/submit1" method="post">
+                        <div class="form-group">
+                            <label for="case_number">Case Number:</label>
+                            <input type="number" class="form-control" name="case_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="plaintiff">Plaintiff:</label>
+                            <input type="text" class="form-control" name="plaintiff" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="defendant">Defendant:</label>
+                            <input type="text" class="form-control" name="defendant" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="summary">Summary of the Issue:</label>
+                            <input type="text" class="form-control" name="summary" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="claim">Claim:</label>
+                            <input type="text" class="form-control" name="claim" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="defense">Defense:</label>
+                            <input type="text" class="form-control" name="defense" required>
+                        </div>
+                        <div class="submit_button text-center">
+                            <button type="submit" class="btn btn-primary">Generate Document Details</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="row">
-                <form action="/submit1" method="post">
-                    <div>                    
-                        <label for="case_number">Case Number: </label>
-                        <input type="number" name="case_number" required>
-                    </div>
-                    <div>
-                        <label for="plaintiff">Plaintiff: </label>
-                        <input type="text" name="plaintiff" required>
-                    </div>
-                    <div>
-                        <label for="defendant">Defendant: </label>
-                        <input type="text" name="defendant" required>
-                    </div>
-                    <div>
-                        <label for="summary">Summary: </label>
-                        <input type="text" name="summary" required>
-                    </div>
-                    <div>
-                        <label for="claim">Claim: </label>
-                        <input type="text" name="claim" required>
-                    </div>
-                    <div>
-                        <label for="defense">Defense: </label>
-                        <input type="text" name="defense" required>
-                    </div>
-                    <div class="submit_button">
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
+        </div>
     </div>
-
-
-
-
-    <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row mt-5">
             <div class="col-lg-4">
@@ -167,7 +206,6 @@
                         <p class="m-0">Sri Venkateswara College of Engineering</p>
                         <p class="m-0">Sriperumbudur - 602 117 </p>
                         <p class="m-0">Tamil Nadu, India</p>
-
                     </div>
                 </div>
             </div>
@@ -192,7 +230,7 @@
         </div>
         <div class="row pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
-                <a href="index.html" class="navbar-brand">
+                <a href="{{ url_for('home') }}" class="navbar-brand">
                     <h1 class="m-0 mt-n2 display-4 text-primary text-uppercase">Verdic-AI</h1>
                 </a>
                 <p>Justice Delayed is Justice Denied</p>
@@ -206,11 +244,11 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <h4 class="font-weight-semi-bold text-primary mb-4">Popular Links</h4>
                 <div class="d-flex flex-column justify-content-start">
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>About</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Services</a>
-                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Attorney</a>
-                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                    <a class="text-white mb-2" href="{{ url_for('home') }}"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                    <a class="text-white mb-2" href="{{ url_for('about') }}"><i class="fa fa-angle-right mr-2"></i>About Us</a>
+                    <a class="text-white mb-2" href="{{ url_for('service') }}"><i class="fa fa-angle-right mr-2"></i>Services Offered</a>
+                    <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Team</a>
+                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-5">
@@ -236,7 +274,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer End -->
 
 
     <!-- Back to Top -->

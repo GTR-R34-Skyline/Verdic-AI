@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Verdic-AI - Backlog Case Details</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="img/favicon.ico" rel="icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <style>
+        .case-details {
+            border: 1px solid #ccc;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        .case-details h4 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .case-details p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 bg-secondary d-none d-lg-block">
+                <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
+                </a>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
+                            <a href="{{ url_for('about') }}" class="nav-item nav-link">About Us</a>
+                            <a href="{{ url_for('service') }}" class="nav-item nav-link">Services</a>
+                            <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
+                            <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
+                            <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
+                        </div>
+                        <a href="#" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
+                    </div>
+                </nav>
+                <div class="container mt-5">
+                    <h2 class="text-center">Case Details</h2>
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Case Number:</h4>
+                            <p class="card-text">{{ case_number }}</p>
+                
+                            <h4 class="card-title">Case Category:</h4>
+                            <p class="card-text">{{ category }}</p>
+                
+                            {% if case_details %}
+                                <h4 class="card-title">Case Details:</h4>
+                                <p class="card-text">{{ case_details }}</p>
+                            {% else %}
+                                <p class="text-danger">No details available for this case.</p>
+                            {% endif %}
+                
+                            <h4 class="card-title">Next Hearing Date:</h4>
+                            <p class="card-text">{{ hearing_date }}</p>
+                
+                            <h4 class="card-title">Postpone or Prepone:</h4>
+                            <p><strong>Postpone (14 days later):</strong> {{ postpone_date }}</p>
+                            <p><strong>Prepone (7 days earlier):</strong> {{ prepone_date }}</p>
+                
+                            <form action="{{ url_for('update_hearing') }}" method="POST" class="mt-4">
+                                <input type="hidden" name="case_number" value="{{ case_number }}">
+                                <input type="hidden" name="current_date" value="{{ hearing_date }}">
+                                <input type="hidden" name="category" value="{{ category }}">
+                
+                                <div class="btn-group">
+                                    <button type="submit" name="action" value="postpone" class="btn btn-warning">Postpone Hearing</button>
+                                    <button type="submit" name="action" value="prepone" class="btn btn-success ml-2">Prepone Hearing</button>
+                                    <button type="submit" name="action" value="stay" class="btn btn-primary ml-2">Stay on Same Date</button>
+                                </div>
+                            </form>
+                
+                            {% if message %}
+                                <div class="alert alert-info mt-3">{{ message }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

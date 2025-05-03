@@ -1,0 +1,6 @@
+Case Number: DISC001
+Date: 2025-05-03
+Plaintiff: John Doe
+Defendant: Acme Corp
+Details: Alleged gender discrimination in promotion process in workplace. Witness testimonies and email evidence presented.
+Outcome: Pending
