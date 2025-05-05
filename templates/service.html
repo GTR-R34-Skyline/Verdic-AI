@@ -83,7 +83,7 @@
                             <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
                             <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
                         </div>
-                        <a href="" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
+                        <a href="{{ url_for('chat') }}" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
                     </div>
                 </nav>
             </div>
@@ -107,68 +107,139 @@
         </div>
         <!-- Page Header End -->
     <!-- Services Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-          <div class="text-center pb-5">
+  <!-- Services Start -->
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="text-left pb-5">
             <h6 class="text-uppercase text-primary">Find Your Lawyer</h6>
             <h1 class="mb-4">Specialized Legal Experts for Your Case</h1>
-            <p>Based on your case details, we recommend verified lawyers across various specializations.</p>
-          </div>
-          <div id="lawyerCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+            <p class="w-75">Based on your case details, we recommend verified lawyers across various specializations.</p>
+        </div>
+        <div id="lawyerCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                  <h5 class="mb-3">Adv. Priya Mehta</h5>
-                  <p class="text-muted">Criminal Defense | 10+ years | Mumbai</p>
-                  <p class="m-0">Highly rated for her success in high-profile criminal trials and procedural justice cases.</p>
-                  <small class="text-primary mt-2">Email: priya.mehta@legalmail.com | ★ 4.8</small>
+                <!-- Lawyer 1 -->
+                <div class="carousel-item active">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='img/lawyer1.jpg') }}" class="d-block w-100 rounded" alt="Adv. Priya Mehta">
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 class="mb-3">Adv. Harshad Mehta</h5>
+                            <p class="text-muted">Criminal Defense | 10+ years | Mumbai</p>
+                            <p class="m-0">Highly rated for her success in high-profile criminal trials and procedural justice cases with a 92% success rate in acquittals.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">Murder Cases</span>
+                                <span class="badge bg-primary me-2">Bail Applications</span>
+                                <span class="badge bg-primary">Appeals</span>
+                            </div>
+                            <small class="text-primary mt-2 d-block">Email: harshad.mehta@legalmail.com | ★ 4.8 (127 reviews)</small>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                  <h5 class="mb-3">Adv. Ramesh Iyer</h5>
-                  <p class="text-muted">Family Law | 8 years | Chennai</p>
-                  <p class="m-0">Specialist in divorce, custody battles, and family settlements with a mediation-first approach.</p>
-                  <small class="text-primary mt-2">Email: ramesh.iyer@legalmail.com | ★ 4.6</small>
+                
+                <!-- Lawyer 2 -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='img/lawyer2.jpg') }}" class="d-block w-100 rounded" alt="Adv. Ramesh Iyer">
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 class="mb-3">Adv. Ramesh Iyer</h5>
+                            <p class="text-muted">Family Law | 8 years | Chennai</p>
+                            <p class="m-0">Specialist in divorce, custody battles, and family settlements with a mediation-first approach that has resolved 85% of cases out of court.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">Divorce</span>
+                                <span class="badge bg-primary me-2">Child Custody</span>
+                                <span class="badge bg-primary">Alimony</span>
+                            </div>
+                            <small class="text-primary mt-2 d-block">Email: ramesh.iyer@legalmail.com | ★ 4.6 (89 reviews)</small>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                  <h5 class="mb-3">Adv. Shruti Kapoor</h5>
-                  <p class="text-muted">IP Law | 6 years | Delhi NCR</p>
-                  <p class="m-0">Expert in trademarks, copyrights, and patent litigation, assisting startups and creators.</p>
-                  <small class="text-primary mt-2">Email: shruti.kapoor@legalmail.com | ★ 4.7</small>
+                
+                <!-- Lawyer 3 -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='img/lawyer3.jpg') }}" class="d-block w-100 rounded" alt="Adv. Shruti Kapoor">
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 class="mb-3">Adv. Shruti Kapoor</h5>
+                            <p class="text-muted">IP Law | 6 years | Delhi NCR</p>
+                            <p class="m-0">Expert in trademarks, copyrights, and patent litigation, assisting startups and creators with over 300 successful IP registrations.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">Trademarks</span>
+                                <span class="badge bg-primary me-2">Copyrights</span>
+                                <span class="badge bg-primary">Patent Law</span>
+                            </div>
+                            <small class="text-primary mt-2 d-block">Email: shruti.kapoor@legalmail.com | ★ 4.7 (64 reviews)</small>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                  <h5 class="mb-3">Adv. Tarun Bansal</h5>
-                  <p class="text-muted">Corporate Law | 12 years | Bengaluru</p>
-                  <p class="m-0">Provides legal counsel for mergers, acquisitions, and regulatory compliance for tech firms.</p>
-                  <small class="text-primary mt-2">Email: tarun.bansal@legalmail.com | ★ 4.9</small>
+                
+                <!-- Lawyer 4 -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='img/lawyer4.jpg') }}" class="d-block w-100 rounded" alt="Adv. Tarun Bansal">
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 class="mb-3">Adv.Harvey Specter</h5>
+                            <p class="text-muted">Corporate Law | 12 years | Bengaluru</p>
+                            <p class="m-0">Provides legal counsel for mergers, acquisitions, and regulatory compliance for tech firms, handling over ₹500 crore in transactions annually.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">M&A</span>
+                                <span class="badge bg-primary me-2">Startup Compliance</span>
+                                <span class="badge bg-primary">Corporate Governance</span>
+                            </div>
+                            <small class="text-primary mt-2 d-block">Email: harvey.specter@legalmail.com | ★ 4.9 (142 reviews)</small>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="carousel-item">
-                <div class="d-flex flex-column align-items-center text-center bg-light rounded pt-4 pb-4 px-3">
-                  <h5 class="mb-3">Adv. Neha Raj</h5>
-                  <p class="text-muted">Cybercrime | 7 years | Hyderabad</p>
-                  <p class="m-0">Experienced in data privacy violations, cyber frauds, and online harassment litigation.</p>
-                  <small class="text-primary mt-2">Email: neha.raj@legalmail.com | ★ 4.5</small>
+                
+                <!-- Lawyer 5 -->
+                <div class="carousel-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-4">
+                            <img src="{{ url_for('static', filename='img/lawyer5.jpg') }}" class="d-block w-100 rounded" alt="Adv. Neha Raj">
+                        </div>
+                        <div class="col-md-8 text-left">
+                            <h5 class="mb-3">Adv. Mike Ross</h5>
+                            <p class="text-muted">Cybercrime | 7 years | Hyderabad</p>
+                            <p class="m-0">Experienced in data privacy violations, cyber frauds, and online harassment litigation with successful prosecution in 78% of cases.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary me-2">Data Privacy</span>
+                                <span class="badge bg-primary me-2">Cyber Fraud</span>
+                                <span class="badge bg-primary">Online Defamation</span>
+                            </div>
+                            <small class="text-primary mt-2 d-block">Email: mike.ross@legalmail.com | ★ 4.5 (56 reviews)</small>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-            <!-- Optional carousel controls -->
+            
+            <!-- Carousel Controls -->
             <a class="carousel-control-prev" href="#lawyerCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#lawyerCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
             </a>
-          </div>
+            
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#lawyerCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#lawyerCarousel" data-slide-to="1"></li>
+                <li data-target="#lawyerCarousel" data-slide-to="2"></li>
+                <li data-target="#lawyerCarousel" data-slide-to="3"></li>
+                <li data-target="#lawyerCarousel" data-slide-to="4"></li>
+            </ol>
         </div>
-      </div>
-      
+    </div>
 </div>
+<!-- Services End -->
 <!-- Services End -->
         <!-- Footer Start -->
         <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">

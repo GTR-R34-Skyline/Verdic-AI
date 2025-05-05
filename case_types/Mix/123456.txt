@@ -1,3 +1,7 @@
 Case Number: 123456
-Category: Mix
-Hearing Date: 2025-07-08
+Plaintiff: John Doe
+Defendant: shasa
+Summary: He was injured in a car crash 
+Claim: He has to pay 100000
+Defense: The defendant failed to fulfill the terms of the service agreement signed on January 15,2021.
+Hearing Date: 2025-05-19

@@ -3,62 +3,92 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Verdic-AI - Backlog Case Details</title>
+    <title>Verdic-AI</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 
-    <style>
-        .case-details {
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin-top: 50px;
-            border-radius: 8px;
-            background-color: #f5f5f5;
-        }
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-        .case-details h4 {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .case-details p {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-    </style>
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 bg-secondary d-none d-lg-block">
-                <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
-                </a>
-            </div>
-            <div class="col-lg-9">
-                <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="{{ url_for('home') }}" class="nav-item nav-link">Home</a>
-                            <a href="{{ url_for('about') }}" class="nav-item nav-link">About Us</a>
-                            <a href="{{ url_for('service') }}" class="nav-item nav-link">Services</a>
-                            <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
-                            <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
-                            <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
-                        </div>
-                        <a href="#" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
+<!-- Header Start -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 bg-secondary d-none d-lg-block">
+            <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                <h1 class="m-0 display-4 text-primary text-uppercase">Verdic-AI</h1>
+            </a>
+        </div>
+        <div class="col-lg-9">
+            <div class="row bg-white border-bottom d-none d-lg-flex">
+                <div class="col-lg-7 text-left">
+                    <div class="h-100 d-inline-flex align-items-center py-2 px-3">
+                        <i class="fa fa-envelope text-primary mr-2"></i>
+                        <small>verdicai@gmail.com</small>
                     </div>
-                </nav>
+                    <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                        <i class="fa fa-phone-alt text-primary mr-2"></i>
+                        <small>+012 345 6789</small>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-right">
+                    <div class="d-inline-flex align-items-center p-2">
+                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
+                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-4 text-primary text-uppercase">Justice</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="{{ url_for('home') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ url_for('about') }}" class="nav-item nav-link">About us </a>
+                        <a href="{{ url_for('service') }}" class="nav-item nav-link">Services offered</a>
+                        <a href="{{ url_for('precedence') }}" class="nav-item nav-link">Precedence Finder</a>
+                        <a href="{{ url_for('document') }}" class="nav-item nav-link">Document Generator</a>
+                        <a href="{{ url_for('backlog') }}" class="nav-item nav-link active">Backlog Management</a>
+                    </div>
+                    <a href="" class="btn btn-primary mr-3 d-none d-lg-block">ChatBot</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
                 <div class="container mt-5">
                     <h2 class="text-center">Case Details</h2>
                     <div class="card mt-4">
@@ -80,8 +110,8 @@
                             <p class="card-text">{{ hearing_date }}</p>
                 
                             <h4 class="card-title">Postpone or Prepone:</h4>
-                            <p><strong>Postpone (14 days later):</strong> {{ postpone_date }}</p>
-                            <p><strong>Prepone (7 days earlier):</strong> {{ prepone_date }}</p>
+                            <p><strong>Postpone:</strong> {{ postpone_date }}</p>
+                            <p><strong>Prepone:</strong> {{ prepone_date }}</p>
                 
                             <form action="{{ url_for('update_hearing') }}" method="POST" class="mt-4">
                                 <input type="hidden" name="case_number" value="{{ case_number }}">

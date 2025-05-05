@@ -9,9 +9,46 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 from datetime import datetime, timedelta
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
-
+from reportlab.lib import colors
+def generate_case_pdf(case_data, filename):
+    doc = SimpleDocTemplate(filename, pagesize=letter)
+    styles = getSampleStyleSheet()
+    story = []
+    
+    # Title
+    title = Paragraph("Legal Case Document", styles['Title'])
+    story.append(title)
+    story.append(Spacer(1, 12))
+    
+    # Case details
+    story.append(Paragraph(f"<b>Case Number:</b> {case_data['case_number']}", styles['Normal']))
+    story.append(Spacer(1, 8))
+    
+    story.append(Paragraph(f"<b>Plaintiff:</b> {case_data['plaintiff']}", styles['Normal']))
+    story.append(Spacer(1, 8))
+    
+    story.append(Paragraph(f"<b>Defendant:</b> {case_data['defendant']}", styles['Normal']))
+    story.append(Spacer(1, 12))
+    
+    story.append(Paragraph("<b>Summary:</b>", styles['Heading3']))
+    story.append(Paragraph(case_data['summary'], styles['Normal']))
+    story.append(Spacer(1, 12))
+    
+    story.append(Paragraph("<b>Claim:</b>", styles['Heading3']))
+    story.append(Paragraph(case_data['claim'], styles['Normal']))
+    story.append(Spacer(1, 12))
+    
+    story.append(Paragraph("<b>Defense:</b>", styles['Heading3']))
+    story.append(Paragraph(case_data['defense'], styles['Normal']))
+    story.append(Spacer(1, 12))
+    
+    # Footer
+    story.append(Paragraph(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", styles['Italic']))
+    
+    doc.build(story)
+    return filename
 class EnhancedCasePatternAnalyzer:
     def __init__(self):
         self.classifier = LogisticRegression()
@@ -460,17 +497,37 @@ def submit1():
     claim = request.form.get('claim')
     defense = request.form.get('defense')
 
-    case_details = f"Case Number: {case_number}\nPlaintiff: {plaintiff}\nDefendant: {defendant}\nSummary: {summary}\nClaim: {claim}\nDefense: {defense}\n\n"
+    case_data = {
+        'case_number': case_number,
+        'plaintiff': plaintiff,
+        'defendant': defendant,
+        'summary': summary,
+        'claim': claim,
+        'defense': defense
+    }
 
     # Ensure the 'case_types/Mix' directory exists
     os.makedirs('case_types/Mix', exist_ok=True)
-    filename = f"{case_number.replace(' ', '_')}.txt"
-    filepath = os.path.join('case_types/Mix', filename)
-    with open(filepath, 'w') as file:
-        file.write(case_details)
+    txt_filename = f"{case_number.replace(' ', '_')}.txt"
+    txt_filepath = os.path.join('case_types/Mix', txt_filename)
+    
+    # Save as text file
+    with open(txt_filepath, 'w') as file:
+        file.write(f"Case Number: {case_number}\nPlaintiff: {plaintiff}\nDefendant: {defendant}\nSummary: {summary}\nClaim: {claim}\nDefense: {defense}\n\n")
 
-    return render_template('success.html', case_number=case_number)
+    # Generate PDF
+    pdf_filename = f"case_{case_number.replace(' ', '_')}.pdf"
+    pdf_filepath = os.path.join('case_types/Mix', pdf_filename)
+    generate_case_pdf(case_data, pdf_filepath)
 
+    return render_template('success.html', 
+                         case_number=case_number,
+                         pdf_filename=pdf_filename)
+
+# Add new route to download PDF
+@app.route('/download_pdf/<filename>')
+def download_pdf(filename):
+    return send_from_directory('case_types/Mix', filename, as_attachment=True)
 @app.route('/backlog')
 def backlog():
     return render_template('backlog.html')
