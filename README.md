@@ -40,6 +40,4 @@ Natural Language Processing: NLTK, SpaCy
 
 Database: PostgreSQL
 
-Cloud Services: AWS (EC2, S3), Azure
-
 Security: SSL/TLS, OAuth
